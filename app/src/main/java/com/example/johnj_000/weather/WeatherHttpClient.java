@@ -18,7 +18,7 @@ public class WeatherHttpClient {
         InputStream is = null;
         URL url = null;
         try {
-            url = new URL(BASE_URL+OPEN_WEATHER_MAP_API_KEY+"&q="location);
+            url = new URL(BASE_URL+OPEN_WEATHER_MAP_API_KEY+"&q="+location);
 
         }catch(MalformedURLException e){
             e.printStackTrace();
