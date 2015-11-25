@@ -18,8 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity {
-    EditText city;
-    TextView description,EditCity;
+    EditText EditCity;
+    TextView description,city;
     TextView temp;
     Button button;
     String findCity;
@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         EditCity = (EditText) findViewById(R.id.cityeditText);
-        city = (EditText) findViewById(R.id.cityText);
+        city = (TextView) findViewById(R.id.cityText);
         description = (TextView) findViewById(R.id.condDescr);
         temp = (TextView) findViewById(R.id.temp);
         button = (Button) findViewById(R.id.button);
@@ -77,8 +77,8 @@ public class MainActivity extends Activity {
         private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
         String data = "";
 
-        @override
-        protected  Void onPreExecute(){
+        @Override
+        protected  void onPreExecute(){
             Dialog.setMessage("Por favor espere");
             Dialog.show();
         }
@@ -119,6 +119,8 @@ public class MainActivity extends Activity {
                     if (imagen != null && imagen.length > 0) {
                         Bitmap img = BitmapFactory.decodeByteArray(imagen, 0, imagen.length);
                         imgView.setImageBitmap(img);
+                    }else{
+                        imgView.setImageResource(R.mipmap.ic_launcher);
                     }
 
                 }catch (JSONException e){
