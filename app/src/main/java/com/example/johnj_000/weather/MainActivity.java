@@ -2,6 +2,8 @@ package com.example.johnj_000.weather;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -16,10 +19,11 @@ import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     EditText city;
-    TextView description;
+    TextView description,EditCity;
     TextView temp;
     Button button;
     String findCity;
+    ImageView imgView;
 
 
     @Override
@@ -27,16 +31,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditCity = (EditText) findViewById(R.id.cityeditText);
         city = (EditText) findViewById(R.id.cityText);
         description = (TextView) findViewById(R.id.condDescr);
         temp = (TextView) findViewById(R.id.temp);
         button = (Button) findViewById(R.id.button);
+        imgView = (ImageView) findViewById(R.id.condIcon);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WeatherTask task = new WeatherTask();
-                findCity = city.getText().toString();
+                findCity = EditCity.getText().toString();
                 task.execute(findCity);
             }
         });
@@ -92,6 +98,7 @@ public class MainActivity extends Activity {
             Dialog.dismiss();
             if (Error == null){
                 String OutputData = "";
+                byte[] imagen;
                 Double celsius = 0.0;
                 JSONObject jsonResponse;
                 try{
@@ -106,6 +113,13 @@ public class MainActivity extends Activity {
                     OutputData = jsonResponse.getJSONArray("weather").getJSONObject(0).optString("main")+" , "
                             +jsonResponse.getJSONArray("weather").getJSONObject(0).optString("description");
                     description.setText(OutputData);
+
+                    OutputData = jsonResponse.getJSONArray("weather").getJSONObject(0).optString("icon");
+                    imagen = ((new WeatherHttpClient()).getImage(OutputData));
+                    if (imagen != null && imagen.length > 0) {
+                        Bitmap img = BitmapFactory.decodeByteArray(imagen, 0, imagen.length);
+                        imgView.setImageBitmap(img);
+                    }
 
                 }catch (JSONException e){
                     e.printStackTrace();

@@ -9,13 +9,28 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/cityText"
+        android:id="@+id/cityeditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/ciudad"
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/button"/>
+
+    <TextView
+        android:id="@+id/cityText"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/condIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/cityText" />
+
 
     <TextView
         android:id="@+id/condDescr"
